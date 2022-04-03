@@ -5,6 +5,7 @@ import com.codeborne.selenide.Selenide;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
@@ -20,17 +21,24 @@ public class SimpleTest {
     @Test
     void fillFormTest() {
 
+        String firstname = "Alena";
+        String lastname = "Arbuzova";
+        String email = "alena@arbuzova.com";
+        String usernumber = "1234567890";
+        String currentaddress = "Some street";
+
         open("/automation-practice-form");
 
         //скрывает баннер и футер
         Selenide.executeJavaScript("document.querySelector(\"footer\").hidden = 'true';" +
                 "document.querySelector(\"#fixedban\").hidden = 'true'");
 
-        $("[id=firstName]").setValue("Alena");
-        $("[id=lastName]").setValue("Arbuzova");
-        $("[id=userEmail]").setValue("alena@arbuzova.com");
+        $("[id=firstName]").setValue(firstname);
+        $("[id=lastName]").setValue(lastname);
+
+        $("[id=userEmail]").setValue(email);
         $(byText("Female")).click();
-        $("[id=userNumber]").setValue("1234567890");
+        $("[id=userNumber]").setValue(usernumber);
 
         $("[id=dateOfBirthInput]").click();
         $("[class=react-datepicker__month-select]").selectOption("February");
@@ -45,12 +53,30 @@ public class SimpleTest {
         $(byText("Music")).click();
         $("[id=uploadPicture]").uploadFromClasspath("photo.jpg");
 
-        $("[id=currentAddress]").setValue("Some street");
+        $("[id=currentAddress]").setValue(currentaddress);
         $("[id=state]").click();
         $(byText("NCR")).click();
         $("[id=city]").click();
         $(byText("Delhi")).click();
 
         $("[id=submit]").click();
+
+        //проверка
+        $("[class=modal-body]").shouldHave(text(firstname),
+                text(lastname),
+                text(email),
+                text("Female"),
+                text(usernumber),
+                text("15"),
+                text("February"),
+                text("1984"),
+                text("Arts"),
+                text("Sports"),
+                text("Reading"),
+                text("Music"),
+                text("photo.jpg"),
+                text(currentaddress),
+                text("NCR"),
+                text("Delhi"));
     }
 }
