@@ -17,7 +17,6 @@ public class SimpleTest {
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.browserSize = "1920x1080";
 }
-
     @Test
     void fillFormTest() {
 
