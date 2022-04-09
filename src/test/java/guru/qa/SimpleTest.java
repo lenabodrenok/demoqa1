@@ -32,33 +32,33 @@ public class SimpleTest {
         Selenide.executeJavaScript("document.querySelector(\"footer\").hidden = 'true';" +
                 "document.querySelector(\"#fixedban\").hidden = 'true'");
 
-        $("[id=firstName]").setValue(firstname);
-        $("[id=lastName]").setValue(lastname);
+        $("#firstName").setValue(firstname);
+        $("#lastName").setValue(lastname);
 
-        $("[id=userEmail]").setValue(email);
+        $("#userEmail").setValue(email);
         $(byText("Female")).click();
-        $("[id=userNumber]").setValue(usernumber);
+        $("#userNumber").setValue(usernumber);
 
-        $("[id=dateOfBirthInput]").click();
+        $("#dateOfBirthInput").click();
         $("[class=react-datepicker__month-select]").selectOption("February");
         $("[class=react-datepicker__year-select]").selectOption("1984");
         $(byText("15")).click();
 
-        $("[id=subjectsInput]").sendKeys("a");
+        $("#subjectsInput").sendKeys("a");
         $(byText("Arts")).click();
 
         $(byText("Sports")).click();
         $(byText("Reading")).click();
         $(byText("Music")).click();
-        $("[id=uploadPicture]").uploadFromClasspath("photo.jpg");
+        $("#uploadPicture").uploadFromClasspath("photo.jpg");
 
-        $("[id=currentAddress]").setValue(currentaddress);
-        $("[id=state]").click();
+        $("#currentAddress").setValue(currentaddress);
+        $("#state").click();
         $(byText("NCR")).click();
-        $("[id=city]").click();
+        $("#city").click();
         $(byText("Delhi")).click();
 
-        $("[id=submit]").click();
+        $("#submit").click();
 
         //проверка
         $("[class=modal-body]").shouldHave(text(firstname),
