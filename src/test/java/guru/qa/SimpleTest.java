@@ -7,8 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.*;
 
 public class SimpleTest {
     @BeforeAll
@@ -20,61 +19,54 @@ public class SimpleTest {
     @Test
     void fillFormTest() {
 
-        String firstname = "Alena";
-        String lastname = "Arbuzova";
-        String email = "alena@arbuzova.com";
-        String usernumber = "1234567890";
-        String currentaddress = "Some street";
+        String firstName = "Alena",
+               lastName = "Arbuzova",
+               email = "alena@arbuzova.com",
+               userNumber = "1234567890",
+               currentAddress = "Some street";
 
         open("/automation-practice-form");
+        $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
 
-        //скрывает баннер и футер
-        Selenide.executeJavaScript("document.querySelector(\"footer\").hidden = 'true';" +
-                "document.querySelector(\"#fixedban\").hidden = 'true'");
+        //hide banner & footer
+        executeJavaScript("$('footer').remove()");
+        executeJavaScript("$('#fixedban').remove()");
 
-        $("#firstName").setValue(firstname);
-        $("#lastName").setValue(lastname);
-
+        $("#firstName").setValue(firstName);
+        $("#lastName").setValue(lastName);
         $("#userEmail").setValue(email);
-        $(byText("Female")).click();
-        $("#userNumber").setValue(usernumber);
+        $("#genterWrapper").$(byText("Female")).click();
+        $("#userNumber").setValue(userNumber);
 
         $("#dateOfBirthInput").click();
-        $("[class=react-datepicker__month-select]").selectOption("February");
-        $("[class=react-datepicker__year-select]").selectOption("1984");
-        $(byText("15")).click();
+        $(".react-datepicker__month-select").selectOption("July");
+        $(".react-datepicker__year-select").selectOption("1984");
+        $(".react-datepicker__day--030:not(.react-datepicker__day--outside-month)").click();
 
-        $("#subjectsInput").sendKeys("a");
-        $(byText("Arts")).click();
-
-        $(byText("Sports")).click();
-        $(byText("Reading")).click();
-        $(byText("Music")).click();
+        $("#subjectsInput").setValue("Arts").pressEnter();
+        $("#hobbiesWrapper").$(byText("Sports")).click();
         $("#uploadPicture").uploadFromClasspath("photo.jpg");
-
-        $("#currentAddress").setValue(currentaddress);
+        $("#currentAddress").setValue(currentAddress);
         $("#state").click();
-        $(byText("NCR")).click();
+        $("#stateCity-wrapper").$(byText("NCR")).click();
         $("#city").click();
-        $(byText("Delhi")).click();
-
+        $("#stateCity-wrapper").$(byText("Delhi")).click();
         $("#submit").click();
 
-        //проверка
-        $("[class=modal-body]").shouldHave(text(firstname),
-                text(lastname),
+        //Asserts
+        $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
+        $(".modal-body").shouldHave(text(firstName),
+                text(lastName),
                 text(email),
                 text("Female"),
-                text(usernumber),
-                text("15"),
-                text("February"),
+                text(userNumber),
+                text("30"),
+                text("July"),
                 text("1984"),
                 text("Arts"),
                 text("Sports"),
-                text("Reading"),
-                text("Music"),
                 text("photo.jpg"),
-                text(currentaddress),
+                text(currentAddress),
                 text("NCR"),
                 text("Delhi"));
     }
