@@ -1,7 +1,8 @@
-package guru.qa;
+package guru.qa.tests;
 
 import com.codeborne.selenide.Configuration;
 import com.github.javafaker.Faker;
+import guru.qa.pages.PagesRegistrationForm;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -10,7 +11,7 @@ import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
 
-public class SimpleTestFaker {
+public class SimpleTestPageObjects {
 
     Faker faker = new Faker();
     String firstName = faker.name().firstName(),
@@ -28,33 +29,26 @@ public class SimpleTestFaker {
 }
     @Test
     void fillFormTest() {
-        open("/automation-practice-form");
-        $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
+        new PagesRegistrationForm().openPage();
+        new PagesRegistrationForm().setFirstName(firstName);
+        new PagesRegistrationForm().setLastName(lastName);
+        new PagesRegistrationForm().setUserEmail(email);
+        new PagesRegistrationForm().setGender(gender);
+        new PagesRegistrationForm().setUserNumber(userNumber);
+        new PagesRegistrationForm().setDateOfBirth();
+        new PagesRegistrationForm().setMonthOfBirth();
+        new PagesRegistrationForm().setYearOfBirth();
+        new PagesRegistrationForm().setDayOfBirth();
+        new PagesRegistrationForm().setSubjects();
+        new PagesRegistrationForm().setHobbies("Sports");
+        new PagesRegistrationForm().setUploadPicture("photo.jpg");
+        new PagesRegistrationForm().setCurrentAdress(currentAddress);
+        new PagesRegistrationForm().setState();
+        new PagesRegistrationForm().setStateName("NCR");
+        new PagesRegistrationForm().setCity();
+        new PagesRegistrationForm().setCityName("Delhi");
+        new PagesRegistrationForm().clickSubmit();
 
-        //hide banner & footer
-        executeJavaScript("$('footer').remove()");
-        executeJavaScript("$('#fixedban').remove()");
-
-        $("#firstName").setValue(firstName);
-        $("#lastName").setValue(lastName);
-        $("#userEmail").setValue(email);
-        $("#genterWrapper").$(byText(gender)).click();
-        $("#userNumber").setValue(userNumber);
-
-        $("#dateOfBirthInput").click();
-        $(".react-datepicker__month-select").selectOption("July");
-        $(".react-datepicker__year-select").selectOption("1984");
-        $(".react-datepicker__day--030:not(.react-datepicker__day--outside-month)").click();
-
-        $("#subjectsInput").setValue("Arts").pressEnter();
-        $("#hobbiesWrapper").$(byText("Sports")).click();
-        $("#uploadPicture").uploadFromClasspath("photo.jpg");
-        $("#currentAddress").setValue(currentAddress);
-        $("#state").click();
-        $("#stateCity-wrapper").$(byText("NCR")).click();
-        $("#city").click();
-        $("#stateCity-wrapper").$(byText("Delhi")).click();
-        $("#submit").click();
 
         //Asserts
         $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
