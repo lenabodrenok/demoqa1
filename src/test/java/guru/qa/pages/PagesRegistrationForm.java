@@ -1,85 +1,130 @@
 package guru.qa.pages;
 
 import com.codeborne.selenide.SelenideElement;
-import org.openqa.selenium.By;
-
+import guru.qa.pages.components.CalendarComponent;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.executeJavaScript;
 
-public class PagesRegistrationForm {
-    //locators
 
+public class PagesRegistrationForm {
+    CalendarComponent calendar = new CalendarComponent();
+
+    //locators - enter if it occurs often (for example)
+    SelenideElement firstNameInput = $("#firstName");
+    SelenideElement lastNameInput = $("#lastName");
 
     //actions
-    public void openPage() {
+    public PagesRegistrationForm openPage() {
         open("/automation-practice-form");
         $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
-        executeJavaScript("$('footer').remove()");    //hide footer
-        executeJavaScript("$('#fixedban').remove()");    //hide banner
+        executeJavaScript("$('footer').remove()");     //hide footer
+        executeJavaScript("$('#fixedban').remove()");  //hide banner
+
+        return this;
     }
-    public void setFirstName(String value) {
-        $("#firstName").setValue(value);
+
+    public PagesRegistrationForm setFirstName(String value) {
+        firstNameInput.setValue(value);
+
+        return this;
     }
-    public void setLastName(String value) {
-        $("#lastName").setValue(value);
+
+    public PagesRegistrationForm setLastName(String value) {
+        lastNameInput.setValue(value);
+
+        return this;
     }
-    public void setUserEmail(String value) {
+
+    public PagesRegistrationForm setUserEmail(String value) {
         $("#userEmail").setValue(value);
+
+        return this;
     }
-    public void setGender(String value) {
+
+    public PagesRegistrationForm setGender(String value) {
         $("#genterWrapper").$(byText(value)).click();
+
+        return this;
     }
-    public void setUserNumber(String value) {
+
+    public PagesRegistrationForm setUserNumber(String value) {
         $("#userNumber").setValue(value);
+
+        return this;
     }
-    public void setDateOfBirth() {
+
+    public PagesRegistrationForm setDateOfBirth(String day, String month, String year) {
         $("#dateOfBirthInput").click();
+        calendar.setDate(day, month, year);
+
+        return this;
     }
-    public void setMonthOfBirth() {
-        $(".react-datepicker__month-select").selectOption("July");
-    }
-    public void setYearOfBirth() {
-        $(".react-datepicker__year-select").selectOption("1984");
-    }
-    public void setDayOfBirth() {
-        $(".react-datepicker__day--030:not(.react-datepicker__day--outside-month)").click();
-    }
-    public void setSubjects() {
+
+    public PagesRegistrationForm setSubjects() {
         $("#subjectsInput").setValue("Arts").pressEnter();
+
+        return this;
     }
-    public void setHobbies(String value) {
+
+    public PagesRegistrationForm setHobbies(String value) {
         $("#hobbiesWrapper").$(byText(value)).click();
+
+        return this;
     }
-    public void setUploadPicture(String value) {
+
+    public PagesRegistrationForm setUploadPicture(String value) {
         $("#uploadPicture").uploadFromClasspath(value);
+
+        return this;
     }
-    public void setCurrentAdress(String value) {
+
+    public PagesRegistrationForm setCurrentAdress(String value) {
         $("#currentAddress").setValue(value);
+
+        return this;
     }
-    public void setState() {
+
+    public PagesRegistrationForm setState() {
         $("#state").click();
+
+        return this;
     }
-    public void setStateName(String value) {
+
+    public PagesRegistrationForm setStateName(String value) {
         $("#stateCity-wrapper").$(byText(value)).click();
+
+        return this;
     }
-    public void setCity() {
+
+    public PagesRegistrationForm setCity() {
         $("#city").click();
+
+        return this;
     }
-    public void setCityName(String value) {
+
+    public PagesRegistrationForm setCityName(String value) {
         $("#stateCity-wrapper").$(byText(value)).click();
+
+        return this;
     }
+
     public void clickSubmit() {
         $("#submit").click();
     }
 
     //asserts
-    public void checkForm(String value) {
+    public PagesRegistrationForm checkForm(String value) {
         $("#example-modal-sizes-title-lg").shouldHave(text(value));
+
+        return this;
     }
-    public void checkFormText(String value) {
+
+    public PagesRegistrationForm checkFormText(String value) {
         $(".modal-body").shouldHave(text(value));
+
+        return this;
     }
 }
 

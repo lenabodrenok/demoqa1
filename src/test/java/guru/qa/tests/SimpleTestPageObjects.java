@@ -6,12 +6,9 @@ import guru.qa.pages.PagesRegistrationForm;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.*;
-
 
 public class SimpleTestPageObjects {
+    PagesRegistrationForm pagesRegistrationForm = new PagesRegistrationForm();
 
     Faker faker = new Faker();
     String firstName = faker.name().firstName(),
@@ -29,40 +26,37 @@ public class SimpleTestPageObjects {
 }
     @Test
     void fillFormTest() {
-        new PagesRegistrationForm().openPage();
-        new PagesRegistrationForm().setFirstName(firstName);
-        new PagesRegistrationForm().setLastName(lastName);
-        new PagesRegistrationForm().setUserEmail(email);
-        new PagesRegistrationForm().setGender(gender);
-        new PagesRegistrationForm().setUserNumber(userNumber);
-        new PagesRegistrationForm().setDateOfBirth();
-        new PagesRegistrationForm().setMonthOfBirth();
-        new PagesRegistrationForm().setYearOfBirth();
-        new PagesRegistrationForm().setDayOfBirth();
-        new PagesRegistrationForm().setSubjects();
-        new PagesRegistrationForm().setHobbies("Sports");
-        new PagesRegistrationForm().setUploadPicture("photo.jpg");
-        new PagesRegistrationForm().setCurrentAdress(currentAddress);
-        new PagesRegistrationForm().setState();
-        new PagesRegistrationForm().setStateName("NCR");
-        new PagesRegistrationForm().setCity();
-        new PagesRegistrationForm().setCityName("Delhi");
-        new PagesRegistrationForm().clickSubmit();
+        pagesRegistrationForm.openPage()
+                .setFirstName(firstName)
+                .setLastName(lastName)
+                .setUserEmail(email)
+                .setGender(gender)
+                .setUserNumber(userNumber)
+                .setDateOfBirth("30", "July", "1984")
+                .setSubjects()
+                .setHobbies("Sports")
+                .setUploadPicture("photo.jpg")
+                .setCurrentAdress(currentAddress)
+                .setState()
+                .setStateName("NCR")
+                .setCity()
+                .setCityName("Delhi")
+                .clickSubmit();
 
         //asserts
-        new PagesRegistrationForm().checkForm("Thanks for submitting the form");
-        new PagesRegistrationForm().checkFormText(firstName);
-        new PagesRegistrationForm().checkFormText(lastName);
-        new PagesRegistrationForm().checkFormText(email);
-        new PagesRegistrationForm().checkFormText(gender);
-        new PagesRegistrationForm().checkFormText(userNumber);
-        new PagesRegistrationForm().checkFormText("30");
-        new PagesRegistrationForm().checkFormText("July");
-        new PagesRegistrationForm().checkFormText("Arts");
-        new PagesRegistrationForm().checkFormText("Sports");
-        new PagesRegistrationForm().checkFormText("photo.jpg");
-        new PagesRegistrationForm().checkFormText(currentAddress);
-        new PagesRegistrationForm().checkFormText("NCR");
-        new PagesRegistrationForm().checkFormText("Delhi");
+        pagesRegistrationForm.checkForm("Thanks for submitting the form")
+                .checkFormText(firstName)
+                .checkFormText(lastName)
+                .checkFormText(email)
+                .checkFormText(gender)
+                .checkFormText(userNumber)
+                .checkFormText("30")
+                .checkFormText("July")
+                .checkFormText("Arts")
+                .checkFormText("Sports")
+                .checkFormText("photo.jpg")
+                .checkFormText(currentAddress)
+                .checkFormText("NCR")
+                .checkFormText("Delhi");
     }
 }
