@@ -73,6 +73,14 @@ public class PagesRegistrationForm {
     public void clickSubmit() {
         $("#submit").click();
     }
+
+    //asserts
+    public void checkForm(String value) {
+        $("#example-modal-sizes-title-lg").shouldHave(text(value));
+    }
+    public void checkFormText(String value) {
+        $(".modal-body").shouldHave(text(value));
+    }
 }
 
 

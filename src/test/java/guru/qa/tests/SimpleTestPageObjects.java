@@ -49,22 +49,20 @@ public class SimpleTestPageObjects {
         new PagesRegistrationForm().setCityName("Delhi");
         new PagesRegistrationForm().clickSubmit();
 
-
-        //Asserts
-        $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
-        $(".modal-body").shouldHave(text(firstName),
-                text(lastName),
-                text(email),
-                text(gender),
-                text(userNumber),
-                text("30"),
-                text("July"),
-                text("1984"),
-                text("Arts"),
-                text("Sports"),
-                text("photo.jpg"),
-                text(currentAddress),
-                text("NCR"),
-                text("Delhi"));
+        //asserts
+        new PagesRegistrationForm().checkForm("Thanks for submitting the form");
+        new PagesRegistrationForm().checkFormText(firstName);
+        new PagesRegistrationForm().checkFormText(lastName);
+        new PagesRegistrationForm().checkFormText(email);
+        new PagesRegistrationForm().checkFormText(gender);
+        new PagesRegistrationForm().checkFormText(userNumber);
+        new PagesRegistrationForm().checkFormText("30");
+        new PagesRegistrationForm().checkFormText("July");
+        new PagesRegistrationForm().checkFormText("Arts");
+        new PagesRegistrationForm().checkFormText("Sports");
+        new PagesRegistrationForm().checkFormText("photo.jpg");
+        new PagesRegistrationForm().checkFormText(currentAddress);
+        new PagesRegistrationForm().checkFormText("NCR");
+        new PagesRegistrationForm().checkFormText("Delhi");
     }
 }
