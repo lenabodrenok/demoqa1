@@ -18,6 +18,15 @@ public class SimpleTestPageObjects {
             userNumber = faker.numerify("##########"),
             currentAddress = faker.address().streetAddress();
 
+    String day = "30",
+            month = "July",
+            year = "1984",
+            subject = "Arts",      // ????
+            hobbies = "Sports",
+            state = "NCR",
+            picture = "photo.jpg",
+            city = "Delhi";
+
     @BeforeAll
     static void setUp() {
         Configuration.holdBrowserOpen = true;
@@ -32,15 +41,13 @@ public class SimpleTestPageObjects {
                 .setUserEmail(email)
                 .setGender(gender)
                 .setUserNumber(userNumber)
-                .setDateOfBirth("30", "July", "1984")
+                .setDateOfBirth(day, month, year)
                 .setSubjects()
-                .setHobbies("Sports")
-                .setUploadPicture("photo.jpg")
-                .setCurrentAdress(currentAddress)
-                .setState()
-                .setStateName("NCR")
-                .setCity()
-                .setCityName("Delhi")
+                .setHobbies(hobbies)
+                .setUploadPicture(picture)
+                .setCurrentAddress(currentAddress)
+                .setState(state)
+                .setCity(city)
                 .clickSubmit();
 
         //asserts
@@ -50,13 +57,14 @@ public class SimpleTestPageObjects {
                 .checkFormText(email)
                 .checkFormText(gender)
                 .checkFormText(userNumber)
-                .checkFormText("30")
-                .checkFormText("July")
-                .checkFormText("Arts")
-                .checkFormText("Sports")
-                .checkFormText("photo.jpg")
+                .checkFormText(day)
+                .checkFormText(month)
+                .checkFormText(year)
+                .checkFormText(subject)
+                .checkFormText(hobbies)
+                .checkFormText(picture)
                 .checkFormText(currentAddress)
-                .checkFormText("NCR")
-                .checkFormText("Delhi");
+                .checkFormText(state)
+                .checkFormText(city);
     }
 }

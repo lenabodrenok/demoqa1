@@ -15,6 +15,8 @@ public class PagesRegistrationForm {
     SelenideElement firstNameInput = $("#firstName");
     SelenideElement lastNameInput = $("#lastName");
 
+    String subject = "Arts";      // ????
+
     //actions
     public PagesRegistrationForm openPage() {
         open("/automation-practice-form");
@@ -63,7 +65,7 @@ public class PagesRegistrationForm {
     }
 
     public PagesRegistrationForm setSubjects() {
-        $("#subjectsInput").setValue("Arts").pressEnter();
+        $("#subjectsInput").setValue(subject).pressEnter();   // ????
 
         return this;
     }
@@ -80,32 +82,20 @@ public class PagesRegistrationForm {
         return this;
     }
 
-    public PagesRegistrationForm setCurrentAdress(String value) {
+    public PagesRegistrationForm setCurrentAddress(String value) {
         $("#currentAddress").setValue(value);
 
         return this;
     }
 
-    public PagesRegistrationForm setState() {
-        $("#state").click();
+    public PagesRegistrationForm setState(String state) {
+        $("#react-select-3-input").setValue(state).pressEnter();
 
         return this;
     }
 
-    public PagesRegistrationForm setStateName(String value) {
-        $("#stateCity-wrapper").$(byText(value)).click();
-
-        return this;
-    }
-
-    public PagesRegistrationForm setCity() {
-        $("#city").click();
-
-        return this;
-    }
-
-    public PagesRegistrationForm setCityName(String value) {
-        $("#stateCity-wrapper").$(byText(value)).click();
+    public PagesRegistrationForm setCity(String city) {
+        $("#react-select-4-input").setValue(city).pressEnter();
 
         return this;
     }
