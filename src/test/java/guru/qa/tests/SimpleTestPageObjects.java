@@ -4,6 +4,7 @@ import com.codeborne.selenide.Configuration;
 import com.github.javafaker.Faker;
 import guru.qa.pages.PagesRegistrationForm;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 
@@ -21,7 +22,7 @@ public class SimpleTestPageObjects {
     String day = "30",
             month = "July",
             year = "1984",
-            subject = "Arts",      // ????
+            subject = "Arts",
             hobbies = "Sports",
             state = "NCR",
             picture = "photo.jpg",
@@ -33,6 +34,7 @@ public class SimpleTestPageObjects {
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.browserSize = "1920x1080";
 }
+    @DisplayName("Проверка demoqa.com - Practice Form")
     @Test
     void fillFormTest() {
         pagesRegistrationForm.openPage()
@@ -42,7 +44,7 @@ public class SimpleTestPageObjects {
                 .setGender(gender)
                 .setUserNumber(userNumber)
                 .setDateOfBirth(day, month, year)
-                .setSubjects()
+                .setSubjects(subject)
                 .setHobbies(hobbies)
                 .setUploadPicture(picture)
                 .setCurrentAddress(currentAddress)
