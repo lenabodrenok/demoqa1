@@ -6,6 +6,7 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.executeJavaScript;
+import static io.qameta.allure.Allure.step;
 
 
 public class PagesRegistrationForm {
@@ -17,10 +18,12 @@ public class PagesRegistrationForm {
 
     //actions
     public PagesRegistrationForm openPage() {
-        open("/automation-practice-form");
-        $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
-        executeJavaScript("$('footer').remove()");     //hide footer
-        executeJavaScript("$('#fixedban').remove()");  //hide banner
+        step("Open registration form", () -> {
+            open("/automation-practice-form");
+            $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
+             executeJavaScript("$('footer').remove()");     //hide footer
+            executeJavaScript("$('#fixedban').remove()");  //hide banner
+        });
         return this;
     }
 

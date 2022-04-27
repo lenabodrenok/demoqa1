@@ -1,13 +1,17 @@
 package guru.qa.tests;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.logevents.SelenideLogger;
 import com.github.javafaker.Faker;
+import guru.qa.helpers.Attach;
 import guru.qa.pages.PagesRegistrationForm;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import io.qameta.allure.selenide.AllureSelenide;
+import org.junit.jupiter.api.*;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
+import static io.qameta.allure.Allure.step;
 
+@Tag("demoqa")
 public class SimpleTestPageObjects {
     PagesRegistrationForm pagesRegistrationForm = new PagesRegistrationForm();
 
@@ -30,14 +34,22 @@ public class SimpleTestPageObjects {
 
     @BeforeAll
     static void setUp() {
+        SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
         Configuration.holdBrowserOpen = true;
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.browserSize = "1920x1080";
+        Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
+
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("enableVNC", true);
+        capabilities.setCapability("enableVideo", true);
+        Configuration.browserCapabilities = capabilities;
 }
-    @DisplayName("Проверка demoqa.com - Practice Form")
     @Test
+    @DisplayName("demoqa.com - Practice Form")
     void fillFormTest() {
-        pagesRegistrationForm.openPage()
+        step("Fill registration form", () -> {
+            pagesRegistrationForm.openPage()
                 .setFirstName(firstName)
                 .setLastName(lastName)
                 .setUserEmail(email)
@@ -51,9 +63,11 @@ public class SimpleTestPageObjects {
                 .setState(state)
                 .setCity(city)
                 .clickSubmit();
+            });
 
         //asserts
-        pagesRegistrationForm.checkForm("Thanks for submitting the form")
+        step("Verify form data", () -> {
+            pagesRegistrationForm.checkForm("Thanks for submitting the form")
                 .checkFormText(firstName)
                 .checkFormText(lastName)
                 .checkFormText(email)
@@ -68,5 +82,13 @@ public class SimpleTestPageObjects {
                 .checkFormText(currentAddress)
                 .checkFormText(state)
                 .checkFormText(city);
+            });
+    }
+    @AfterEach
+    void addAttachments() {
+        Attach.screenshotAs("Last screenshot");
+        Attach.pageSource();
+        Attach.browserConsoleLogs();
+        Attach.addVideo();
     }
 }
