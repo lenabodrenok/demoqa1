@@ -8,7 +8,6 @@ import guru.qa.pages.PagesRegistrationForm;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.remote.DesiredCapabilities;
-
 import static io.qameta.allure.Allure.step;
 
 @Tag("demoqa")

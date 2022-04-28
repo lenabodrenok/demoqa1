@@ -5,10 +5,7 @@ import com.codeborne.selenide.logevents.SelenideLogger;
 import com.github.javafaker.Faker;
 import guru.qa.helpers.Attach;
 import io.qameta.allure.selenide.AllureSelenide;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
@@ -30,6 +27,7 @@ public class SimpleTestFaker {
         Configuration.holdBrowserOpen = true;
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.browserSize = "1920x1080";
+        Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
 }
     @Test
     @DisplayName("demoqa.com - Practice Form")
