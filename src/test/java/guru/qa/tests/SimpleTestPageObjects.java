@@ -10,7 +10,6 @@ import org.junit.jupiter.api.*;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import static io.qameta.allure.Allure.step;
 
-@Tag("demoqa")
 public class SimpleTestPageObjects {
     PagesRegistrationForm pagesRegistrationForm = new PagesRegistrationForm();
 
