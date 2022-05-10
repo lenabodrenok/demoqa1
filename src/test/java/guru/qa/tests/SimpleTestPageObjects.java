@@ -44,7 +44,6 @@ public class SimpleTestPageObjects {
         Configuration.browserCapabilities = capabilities;
 }
     @Test
-    @Tag("demoqa")
     @DisplayName("demoqa.com - Practice Form")
     void fillFormTest() {
         step("Fill registration form", () -> {
