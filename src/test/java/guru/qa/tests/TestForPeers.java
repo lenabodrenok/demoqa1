@@ -36,8 +36,6 @@ public class TestForPeers {
         String selenoid = System.getProperty("selenoidUrl", "selenoid.autotests.cloud/wd/hub");
 
         Configuration.browser = System.getProperty("browser", "chrome");
-        Configuration.browserVersion = System.getProperty("browserVersion", "100");
-        Configuration.browserSize = System.getProperty("browserSize", "1920x1080");
         Configuration.baseUrl = System.getProperty("baseUrl", "https://demoqa.com");
         Configuration.remote = "https://" + config.login() + ":" + config.password() + "@" + selenoid;
 
